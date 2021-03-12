@@ -77,7 +77,13 @@ makeBoard() {
     return null;
   }
   
-
+  endGame(msg) {
+    
+    const top = document.querySelector("#column-top");
+    top.removeEventListener("click", this.handleClick.bind(this));
+    alert(msg);
+    
+  }
   handleClick(evt) {
     // get x from ID of clicked cell
     const x = +evt.target.id;
@@ -92,7 +98,7 @@ makeBoard() {
     
     // check for win
     if (this.checkForWin()) {
-      this.endGame(`Player ${this.currPlayer} won!`);
+      this.endGame(`Player ${this.currPlayer.color} won!`);
     }
     
     // check for tie
@@ -101,7 +107,7 @@ makeBoard() {
     }
        
     // switch players
-    this.currPlayer = this.players[0] === this.players[0] ? this.players[1] : this.players[0];
+    this.currPlayer = this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
   checkForWin() {
      this._win = (cells)=> {
@@ -137,16 +143,10 @@ makeBoard() {
       }
     }
   }
-  endGame(msg) {
-    alert(msg);
-    const top = document.querySelector("#column-top");
-    top.removeEventListener("click", this.handleGameClick);
   
-    
-  }
 }
 class player{
-  cosntructor(color){
+  constructor(color){
 this.color=color;
   }
   
@@ -181,8 +181,4 @@ let p2 = new player(document.querySelector('.p2').value);
 
 
 /** checkForWin: check board cell-by-cell for "does a win start here?" */
-
-
-
-const game = new Board(6,7);
 
